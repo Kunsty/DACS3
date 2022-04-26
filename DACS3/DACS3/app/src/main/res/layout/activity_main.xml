@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarmanhinhchinh"
+                android:id="@+id/toobarmanhinhchinh"
                 app:title="Trang chính"
                 android:background="#ff00dfff"
                 android:layout_width="match_parent"
@@ -66,6 +66,7 @@
             android:layout_gravity="start">
 
             <ListView
+                android:layout_marginTop="10dp"
                 android:id="@+id/listviewmanhinhchinh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

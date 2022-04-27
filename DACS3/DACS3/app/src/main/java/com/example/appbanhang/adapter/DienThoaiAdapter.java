@@ -54,6 +54,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.giasp.setText("Giá: "+ decimalFormat.format(Double.parseDouble(sanPham.getGiasp()))+"Đ" );
             myViewHolder.mota.setText(sanPham.getMota());
+
             Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
             myViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
@@ -61,6 +62,7 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (!isLongClick){
                         //click
                         Intent intent = new Intent(context, ChitTietActivity.class);
+                        intent.putExtra("chitiet", sanPham);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }

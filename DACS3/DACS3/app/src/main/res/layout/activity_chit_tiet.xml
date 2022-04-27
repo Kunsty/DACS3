@@ -46,23 +46,27 @@
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="Giá: 2500 đ"
+                android:text="@string/gi_2500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="20dp"
+                android:background="@drawable/spinner"
                 android:layout_marginEnd="20dp"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/btmthemvaogiohang"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
+                android:backgroundTint="#478188"
+                android:textSize="12sp"
                 android:textColor="@android:color/white"
-                android:text="Thêm vào giỏ hàng"
+                android:text="@string/th_m_v_o_gi_h_ng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -94,5 +98,4 @@
                 android:layout_height="wrap_content"/>
         </ScrollView>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -96,7 +96,7 @@ public class ChitTietActivity extends AppCompatActivity {
         for (int i=0; i<Utils.manggiohang.size(); i++){
             totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
         }
-        badge.setText(String.valueOf(totalItem  ));
+        badge.setText(String.valueOf(totalItem));
     }
 
     private void initData() {

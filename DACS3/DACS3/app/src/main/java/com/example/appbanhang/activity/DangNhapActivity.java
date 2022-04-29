@@ -30,6 +30,7 @@ public class DangNhapActivity extends AppCompatActivity {
     AppCompatButton btndangnhap;
     ApiBanHang apiBanHang;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    boolean isLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,6 @@ public class DangNhapActivity extends AppCompatActivity {
         txtdangki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
-
                 Intent intent = new Intent(getApplicationContext(), DangKiActivity.class);
                 startActivity(intent);
             }
@@ -71,23 +70,8 @@ public class DangNhapActivity extends AppCompatActivity {
                     //save
                     Paper.book().write("email", str_email);
                     Paper.book().write("pass", str_pass);
+                    dangnhap(str_email, str_pass);
 
-                    compositeDisposable.add(apiBanHang.dangNhap(str_email,str_pass)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            userModel -> {
-                                if (userModel.isSuccess()){
-                                    Utils.user_current = userModel.getResult().get(0);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            },
-                            throwable -> {
-                                Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                    ));
                 }
             }
         });
@@ -107,18 +91,47 @@ public class DangNhapActivity extends AppCompatActivity {
         //read data
 
         if (Paper.book().read("email") != null && Paper.book().read("pass") != null){
-            email.setText(Utils.user_current.getEmail());
-            pass.setText(Utils.user_current.getPass());
-
+            email.setText(Paper.book().read("email"));
+            pass.setText(Paper.book().read("pass"));
+            if (Paper.book().read("islogin") != null){
+                boolean flag = Paper.book().read("islogin");
+                if (flag){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //dangnhap(Paper.book().read("email"), Paper.book().read("pass"));
+                        }
+                    }, 1000);
+                }
+            }
         }
 
     }
 
+    private void dangnhap(String email, String pass) {
+        compositeDisposable.add(apiBanHang.dangNhap(email,pass)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if (userModel.isSuccess()){
+                                isLogin = true;
+                                Paper.book().write("islogin", isLogin);
+                                Utils.user_current = userModel.getResult().get(0);
+                                //luu lai thong tin nguoi dung
+                                Paper.book().write("user", userModel.getResult().get(0));
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                ));
+    }
 
-
-
-
-@Override
+    @Override
     protected void onResume() {
     super.onResume();
     if (Utils.user_current.getEmail() != null && Utils.user_current.getPass() != null) {

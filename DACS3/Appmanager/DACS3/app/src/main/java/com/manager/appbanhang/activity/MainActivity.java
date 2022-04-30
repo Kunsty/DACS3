@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 loaiSpModel -> {
                     if (loaiSpModel.isSuccess()){
                         mangloaisp = loaiSpModel.getResult();
-                        mangloaisp.add(new LoaiSp("Quản lí", ""));
+                        mangloaisp.add(new LoaiSp("Quản lý", ""));
                         mangloaisp.add(new LoaiSp("Đăng xuất", ""));
                         loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                         listViewManHinhChinh.setAdapter(loaiSpAdapter);
